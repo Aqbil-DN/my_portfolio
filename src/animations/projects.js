@@ -152,13 +152,24 @@ export function initProjects() {
       { opacity: 1, x: 0, y: 0, duration: 1, ease: 'power3.out' }
     );
 
-    // Image reveals
+    // Image reveals & Recalculation
+    const imgAnchor = card.querySelector('.project-image-anchor');
     const img = card.querySelector('.project-aspect-wrapper img');
-    tl.from(img, {
-      scale: 1.2,
-      duration: 1.2,
-      ease: 'power3.out'
-    }, 0);
+    
+    if (imgAnchor) {
+      tl.from(imgAnchor, {
+        scale: 1.2,
+        duration: 1.2,
+        ease: 'power3.out'
+      }, 0);
+    }
+
+    // Ensure ScrollTrigger recalculates everything if dynamic lazy images load delayed
+    if (img) {
+      img.addEventListener('load', () => {
+        ScrollTrigger.refresh();
+      });
+    }
 
     // Title SplitText
     const title = card.querySelector('.project-title');
