@@ -13,9 +13,6 @@ export function initCursor() {
     return;
   }
 
-  const dot = cursor.querySelector('.cursor-dot');
-  const ring = cursor.querySelector('.cursor-ring');
-
   let mouseX = 0;
   let mouseY = 0;
 
@@ -47,11 +44,9 @@ export function initCursor() {
     document.querySelectorAll(selector).forEach(el => {
       el.addEventListener('mouseenter', () => {
         cursor.classList.add('cursor-hover');
-        gsap.to(dot, { scale: 0.5, duration: 0.3 });
       });
       el.addEventListener('mouseleave', () => {
         cursor.classList.remove('cursor-hover');
-        gsap.to(dot, { scale: 1, duration: 0.3 });
       });
     });
   });
@@ -64,11 +59,9 @@ export function initCursor() {
           el.dataset.cursorBound = 'true';
           el.addEventListener('mouseenter', () => {
             cursor.classList.add('cursor-hover');
-            gsap.to(dot, { scale: 0.5, duration: 0.3 });
           });
           el.addEventListener('mouseleave', () => {
             cursor.classList.remove('cursor-hover');
-            gsap.to(dot, { scale: 1, duration: 0.3 });
           });
         }
       });

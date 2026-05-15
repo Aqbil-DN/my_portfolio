@@ -155,7 +155,7 @@ export function initProjects() {
     // Image reveals & Recalculation
     const imgAnchor = card.querySelector('.project-image-anchor');
     const img = card.querySelector('.project-aspect-wrapper img');
-    
+
     if (imgAnchor) {
       tl.from(imgAnchor, {
         scale: 1.2,

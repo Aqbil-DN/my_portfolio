@@ -204,52 +204,45 @@ img {
   height: auto;
 }
 
-/* Custom cursor */
+/* Custom cursor — Cartoon Pencil */
 .custom-cursor {
   position: fixed;
   top: 0;
   left: 0;
   z-index: 999999;
   pointer-events: none;
-  mix-blend-mode: difference;
 }
 
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--paper-white);
-  border-radius: 50%;
+.pencil-wrapper {
+  position: relative;
+  transform: translate(-2px, -38px) rotate(0deg);
+  transform-origin: 2px 38px;
+  transition: transform 0.25s var(--ease-out-expo);
+}
+
+.pencil-sparkle {
   position: absolute;
-  top: -4px;
-  left: -4px;
+  top: 30px;
+  left: -8px;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s var(--ease-out-expo);
 }
 
-.cursor-ring {
-  width: 40px;
-  height: 40px;
-  border: 1.5px solid var(--paper-white);
-  border-radius: 50%;
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  opacity: 0.5;
-  transition: width 0.3s var(--ease-out-expo),
-              height 0.3s var(--ease-out-expo),
-              top 0.3s var(--ease-out-expo),
-              left 0.3s var(--ease-out-expo),
-              opacity 0.3s ease;
+/* Hover interactions */
+.cursor-hover .pencil-wrapper {
+  transform: translate(-2px, -38px) scale(1.15) rotate(-15deg);
 }
 
-body:hover .custom-cursor .cursor-ring {
-  opacity: 0.5;
+.cursor-hover .pencil-sparkle {
+  opacity: 1;
+  transform: scale(1.1) translate(3px, -3px);
+  animation: sparklePulse 1s ease-in-out infinite alternate;
 }
 
-.cursor-hover .cursor-ring {
-  width: 60px !important;
-  height: 60px !important;
-  top: -30px !important;
-  left: -30px !important;
-  opacity: 0.8 !important;
+@keyframes sparklePulse {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.3) rotate(15deg); }
 }
 
 /* Navigation */
