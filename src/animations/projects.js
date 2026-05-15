@@ -6,6 +6,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
 
+// ─── IMPORT LOCAL PROJECT IMAGES FOR VITE COMPATIBILITY ───
+import pixelTodolistImg from '../assets/project/pixel_todolist.png';
+import myUniverseImg from '../assets/project/my_universe.png';
+
 const PROJECTS = [
   {
     num: '01',
@@ -13,7 +17,7 @@ const PROJECTS = [
     title: 'S.BRAIN - The Gamified \n Digital Second Brain',
     description: 'A pixel-art style mobile application that turns daily tasks into a nostalgic, game-like experience. Users can collect coins, unlock achievements, and visualize their productivity in a retro 8-bit world. Built with React Native and Framer Motion for smooth, tactile animations.',
     tags: ['Next.js', 'GSAP', 'TypeScript', 'UI/UX'],
-    image: '/src/assets/project/pixel_todolist.png',
+    image: pixelTodolistImg,
     link: 'https://todolistpixel.vercel.app/',
     sticker: true,
     hoverDoodle: '*Fun Productivity'
@@ -24,7 +28,7 @@ const PROJECTS = [
     title: 'Awen Universe',
     description: 'Web for my love named Awen. Awen Universe is a fully interactive, immersive 3D web experience designed as a digital tribute. It transforms a simple photo gallery into a breathtaking cosmic journey. Users can explore a dynamically generated galaxy where every "star" is a cherished memory (photo) orbiting around a glowing, beating galactic core.',
     tags: ['Three.js', 'ReactJS', 'Tailwind CSS', 'GSAP', 'Vite'],
-    image: '/src/assets/project/my_universe.png',
+    image: myUniverseImg,
     link: 'https://my-universe-six.vercel.app/',
     sticker: false,
     hoverDoodle: '*Cinematic'

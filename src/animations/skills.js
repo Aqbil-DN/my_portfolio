@@ -6,13 +6,18 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import { Draggable } from 'gsap/Draggable';
 
+// ─── IMPORT LOCAL ASSETS SO VITE BUNDLES THEM FOR PRODUCTION ───
+import gsapLogo from '../assets/logo/gsap.png';
+import framerLogo from '../assets/logo/framer_motion.png';
+import viteLogo from '../assets/logo/vite.png';
+
 // Complete Skills definition with high-quality Devicon CDN icons
 export const SKILLS = [
   { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg', rotate: 0 },
   { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg', rotate: 0 },
-  { name: 'GSAP', icon: '/src/assets/logo/gsap.png', rotate: 0 },
+  { name: 'GSAP', icon: gsapLogo, rotate: 0 },
   { name: 'Three.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/threejs/threejs-original.svg', rotate: 0 },
-  { name: 'Framer Motion', icon: '/src/assets/logo/framer_motion.png', rotate: 0 },
+  { name: 'Framer Motion', icon: framerLogo, rotate: 0 },
   { name: 'TailwindCSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg', rotate: 0 },
   { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg', rotate: 0 },
   { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg', rotate: 0 },
@@ -30,7 +35,7 @@ export const SKILLS = [
   { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg', rotate: 0 },
   { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg', rotate: 0 },
   { name: 'GitLab', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gitlab/gitlab-original.svg', rotate: 0 },
-  { name: 'Vite', icon: '/src/assets/logo/vite.png', rotate: 0 },
+  { name: 'Vite', icon: viteLogo, rotate: 0 },
   { name: 'GoLang', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg', rotate: 0 },
 ];
 
