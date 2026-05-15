@@ -87,8 +87,36 @@ window.addEventListener('DOMContentLoaded', () => {
     initContact();
     initTransitions();
 
+    // ─── CUSTOM SMOOTH SCROLL NAVIGATION ───
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          lenis.scrollTo(targetSection, {
+            offset: 0,
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+          });
+        }
+      });
+    });
 
-    // Refresh ScrollTrigger after everything is set up
+    const ctaBtn = document.getElementById('hero-cta-btn');
+    if (ctaBtn) {
+      ctaBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = ctaBtn.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          lenis.scrollTo(targetSection, {
+            duration: 1.5
+          });
+        }
+      });
+    }    // Refresh ScrollTrigger after everything is set up
     ScrollTrigger.refresh();
   });
 });
