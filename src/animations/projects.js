@@ -14,7 +14,7 @@ const PROJECTS = [
   {
     num: '01',
     category: 'To Do List ',
-    title: 'S.BRAIN - The Gamified \n Digital Second Brain',
+    title: 'S.BRAIN - The Gamified <br/> Digital Second Brain',
     description: 'A pixel-art style mobile application that turns daily tasks into a nostalgic, game-like experience. Users can collect coins, unlock achievements, and visualize their productivity in a retro 8-bit world. Built with React Native and Framer Motion for smooth, tactile animations.',
     tags: ['Next.js', 'GSAP', 'TypeScript', 'UI/UX'],
     image: pixelTodolistImg,
