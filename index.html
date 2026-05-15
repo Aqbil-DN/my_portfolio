@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aqbil Dzaky Nauval — Paper Universe | Creative Frontend Developer</title>
+  <meta name="description"
+    content="Paper Universe — an immersive handcrafted portfolio by Aqbil Dzaky Nauval. Frontend Developer & Creative Animator crafting digital experiences from paper dreams." />
+  <meta name="keywords" content="frontend developer, creative animator, portfolio, GSAP, interactive, paper universe" />
+  <meta name="author" content="Aqbil Dzaky Nauval" />
+  <meta property="og:title" content="Aqbil Dzaky Nauval — Paper Universe" />
+  <meta property="og:description" content="Crafting Digital Experiences From Paper Dreams" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Caveat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Homemade+Apple&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📜</text></svg>" />
+</head>
+
+<body>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- CUSTOM CURSOR                               -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="custom-cursor" class="custom-cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- LOADING SCREEN                              -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="loading-screen">
+    <div id="paper-surface"></div>
+    <div class="paper-texture-layer"></div>
+
+    <div id="dust-container"></div>
+
+    <div id="collage-container">
+      <div class="col-track" data-dir="1"></div>
+      <div class="col-track" data-dir="-1"></div>
+      <div class="col-track" data-dir="1"></div>
+      <div class="col-track" data-dir="-1"></div>
+      <div class="col-track" data-dir="1"></div>
+    </div>
+
+    <div id="ink-layer">
+      <svg id="ink-splat" viewBox="0 0 200 200">
+        <path
+          d="M96.5 15.5C113 18 131 29 143.5 44C156 59 161 78 159 97.5C157 117 148 137 133 151C118 165 97 173 76.5 170.5C56 168 36 155 23 138.5C10 122 4 102 6.5 82.5C9 63 20 44 35 29C50 14 73 10.5 96.5 15.5Z" />
+      </svg>
+
+      <svg class="doodles-svg" id="doodles-svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+        <path class="draw-path doodle parallax-el" data-speed="-0.03"
+          d="M300 200 L320 250 L380 260 L330 300 L340 360 L300 320 L260 360 L270 300 L220 260 L280 250 Z" />
+        <path class="draw-path doodle parallax-el" data-speed="0.05"
+          d="M1500 800 Q1600 700 1700 850 L1680 850 M1700 850 L1680 810" />
+        <path class="draw-path doodle parallax-el" data-speed="0.02" fill="none"
+          d="M800 150 Q850 100 900 180 T1000 120 T1100 190" />
+        <circle class="draw-path doodle parallax-el" data-speed="-0.04" fill="none" cx="1600" cy="200" r="40" />
+        <circle class="draw-path doodle parallax-el" data-speed="0.06" fill="none" cx="200" cy="800" r="60"
+          stroke-dasharray="10 10" />
+      </svg>
+    </div>
+
+    <div id="text-container">
+      <svg class="text-bg-stroke-svg" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid meet">
+        <path id="text-bg-stroke" class="draw-path" fill="none" stroke="var(--l-accent-orange)" stroke-width="2"
+          opacity="0.5" d="M 50 140 Q 300 40 550 160" />
+      </svg>
+
+      <h1 id="name-reveal">
+        Aqbil Dzaky Nauval
+      </h1>
+
+      <div id="subtitle-wrapper">
+        <svg viewBox="0 0 700 120" class="subtitle-svg">
+          <path id="subtitle-path" class="draw-path" fill="none" stroke="var(--l-ink-light)" stroke-width="1.5"
+            stroke-dasharray="4 4" opacity="0.3" stroke-linecap="round" stroke-linejoin="round"
+            d="M 30 70 Q 175 40 350 70 T 670 70" />
+          <text class="handwriting-l" fill="var(--l-ink)" dominant-baseline="middle" text-anchor="middle"
+            font-size="28px">
+            <textPath href="#subtitle-path" startOffset="50%">
+              Crafting Digital Experiences From Paper Dreams
+            </textPath>
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <div id="progress-container">
+      <svg viewBox="0 0 400 20" class="progress-svg">
+        <path d="M0 10 Q 100 0 200 15 T 400 10" fill="none" stroke="rgba(26, 26, 26, 0.2)" stroke-width="2" />
+        <path id="progress-line" d="M0 10 Q 100 0 200 15 T 400 10" fill="none" stroke="var(--l-accent-orange)"
+          stroke-width="4" stroke-linecap="round" />
+        <circle id="progress-dot" cx="0" cy="10" r="4" fill="var(--l-ink)" />
+      </svg>
+      <div id="progress-text">Loading Universe... 0%</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- NAVIGATION                                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <nav id="main-nav" class="main-nav">
+    <div class="nav-logo">
+      <span class="nav-logo-text" data-split>ADN</span>
+      <svg class="nav-logo-squiggle" viewBox="0 0 60 8" width="60" height="8">
+        <path d="M0,4 Q10,0 20,4 T40,4 T60,4" stroke="#D4956A" stroke-width="2" fill="none" stroke-linecap="round" />
+      </svg>
+    </div>
+    <div class="nav-links">
+      <a href="#home" class="nav-link" data-section="home"><span data-split>Home</span></a>
+      <a href="#photos" class="nav-link" data-section="photos"><span data-split>Gallery</span></a>
+      <a href="#about" class="nav-link" data-section="about"><span data-split>About</span></a>
+      <a href="#skills" class="nav-link" data-section="skills"><span data-split>Skills</span></a>
+      <a href="#projects" class="nav-link" data-section="projects"><span data-split>Projects</span></a>
+      <a href="#playground" class="nav-link" data-section="playground"><span data-split>Play</span></a>
+      <a href="#contact" class="nav-link" data-section="contact"><span data-split>Contact</span></a>
+    </div>
+    <div class="nav-tape"></div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- MAIN CONTENT WRAPPER                        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <main id="smooth-content">
+    <!-- Paper grain overlay (global) -->
+    <div class="paper-grain-overlay"></div>
+
+    <!-- ═══════════ HERO SECTION ═══════════ -->
+    <section id="home" class="section hero-section">
+      <div class="hero-bg-layers">
+        <div class="hero-paper-layer hero-paper-1"></div>
+        <div class="hero-paper-layer hero-paper-2"></div>
+        <div class="hero-paper-layer hero-paper-3"></div>
+      </div>
+
+      <!-- Decorative SVG doodles -->
+      <svg class="hero-doodle doodle-arrow" viewBox="0 0 120 60" width="120" height="60">
+        <path d="M10,50 Q30,10 60,30 T110,15" stroke="#D4956A" stroke-width="2.5" fill="none" stroke-linecap="round"
+          stroke-dasharray="200" stroke-dashoffset="200" />
+        <path d="M100,10 L112,15 L98,22" stroke="#D4956A" stroke-width="2.5" fill="none" stroke-linecap="round"
+          stroke-dasharray="50" stroke-dashoffset="50" />
+      </svg>
+      <svg class="hero-doodle doodle-star" viewBox="0 0 50 50" width="50" height="50">
+        <path d="M25,5 L30,18 L45,20 L33,30 L37,45 L25,37 L13,45 L17,30 L5,20 L20,18 Z" stroke="#8EAFC4"
+          stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="200" stroke-dashoffset="200" />
+      </svg>
+      <svg class="hero-doodle doodle-heart" viewBox="0 0 50 50" width="45" height="45">
+        <path d="M25,45 Q5,30 5,18 Q5,5 17,5 Q25,5 25,15 Q25,5 33,5 Q45,5 45,18 Q45,30 25,45" stroke="#C47A6E"
+          stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="200" stroke-dashoffset="200" />
+      </svg>
+      <svg class="hero-doodle doodle-circle" viewBox="0 0 80 80" width="70" height="70">
+        <circle cx="40" cy="40" r="30" stroke="#D4956A" stroke-width="1.5" fill="none" stroke-dasharray="200"
+          stroke-dashoffset="200" />
+      </svg>
+      <svg class="hero-doodle doodle-zigzag" viewBox="0 0 150 30" width="150" height="30">
+        <path d="M0,15 L20,5 L40,25 L60,5 L80,25 L100,5 L120,25 L140,15" stroke="#2C2C2C" stroke-width="1.5" fill="none"
+          stroke-linecap="round" stroke-dasharray="300" stroke-dashoffset="300" />
+      </svg>
+      <svg class="hero-doodle doodle-spiral" viewBox="0 0 60 60" width="55" height="55">
+        <path d="M30,30 Q30,20 35,20 Q45,20 45,30 Q45,42 30,42 Q15,42 15,28 Q15,12 32,12 Q50,12 50,30" stroke="#8EAFC4"
+          stroke-width="1.2" fill="none" stroke-linecap="round" stroke-dasharray="200" stroke-dashoffset="200" />
+      </svg>
+
+      <!-- Masking tape pieces -->
+      <div class="tape tape-1"></div>
+      <div class="tape tape-2"></div>
+      <div class="tape tape-3"></div>
+
+      <!-- Floating photos -->
+      <div class="hero-photo hero-photo-1 parallax-element" data-depth="0.3">
+        <img src="/images/photo_workspace.png" alt="Creative workspace" />
+        <span class="photo-caption handwritten">my workspace ✨</span>
+      </div>
+      <div class="hero-photo hero-photo-2 parallax-element" data-depth="0.5">
+        <img src="/images/photo_coffee.png" alt="Coffee and sketches" />
+        <span class="photo-caption handwritten">morning ritual ☕</span>
+      </div>
+
+      <!-- Main hero content -->
+      <div class="hero-content">
+        <div class="hero-tag">
+          <svg class="hero-tag-line" viewBox="0 0 100 2" width="60" height="2">
+            <line x1="0" y1="1" x2="100" y2="1" stroke="#D4956A" stroke-width="2" stroke-dasharray="100"
+              stroke-dashoffset="100" />
+          </svg>
+          <span class="hero-tag-text handwritten" data-split>Welcome to my universe</span>
+        </div>
+        <h1 class="hero-headline" data-split>
+          <span class="headline-line">Crafting Digital</span>
+          <span class="headline-line">Experiences From</span>
+          <span class="headline-line accent-line">Paper Dreams</span>
+        </h1>
+        <div class="hero-sub">
+          <p class="hero-subtitle" data-split>Frontend Developer & Creative Animator</p>
+          <p class="hero-byline handwritten" data-split>by Aqbil Dzaky Nauval</p>
+        </div>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-paper" id="hero-cta-btn">
+            <span data-split>Explore My Work</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M5,12 L19,12 M13,6 L19,12 L13,18" stroke="currentColor" stroke-width="2" fill="none"
+                stroke-linecap="round" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+          <svg class="scroll-svg" viewBox="0 0 30 50" width="24" height="40">
+            <rect x="2" y="2" width="26" height="46" rx="13" stroke="#2C2C2C" stroke-width="1.5" fill="none" />
+            <circle class="scroll-dot" cx="15" cy="15" r="3" fill="#2C2C2C" />
+          </svg>
+          <span class="handwritten scroll-text">scroll down</span>
+        </div>
+      </div>
+
+      <!-- Sticky note -->
+      <div class="sticky-note parallax-element" data-depth="0.2">
+        <p class="handwritten">"Make it beautiful, make it move, make it feel alive."</p>
+        <div class="sticky-tape"></div>
+      </div>
+
+      <!-- Paper Tear Edge Simulator -->
+      <div class="torn-edge-bottom"
+        style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 10\' preserveAspectRatio=\'none\'><path d=\'M0,0 L0,10 L100,10 L100,0 C90,5 80,-2 70,3 C60,8 50,0 40,5 C30,10 20,-1 10,4 C5,6 0,0 0,0 Z\' fill=\'%23F5ECD7\'/></svg>');">
+      </div>
+    </section>
+
+    <!-- ═══════════ PHOTO STREAM SECTION ═══════════ -->
+    <section id="photos" class="section photos-section">
+      <div class="photos-header">
+        <h2 class="section-title" data-split>Photo Stream</h2>
+        <p class="section-subtitle handwritten" data-split>moments captured in paper frames</p>
+        <svg class="section-squiggle" viewBox="0 0 200 12" width="200" height="12">
+          <path d="M0,6 Q25,0 50,6 T100,6 T150,6 T200,6" stroke="#D4956A" stroke-width="2" fill="none"
+            stroke-linecap="round" stroke-dasharray="250" stroke-dashoffset="250" />
+        </svg>
+      </div>
+      <div class="photo-wall" id="photo-wall">
+        <!-- 5 columns generated by JS -->
+      </div>
+      <div class="photos-doodles">
+        <svg class="photo-doodle pd-1" viewBox="0 0 80 80" width="60" height="60">
+          <path d="M10,40 Q20,10 40,30 T70,20" stroke="#D4956A" stroke-width="1.5" fill="none" stroke-linecap="round"
+            stroke-dasharray="150" stroke-dashoffset="150" />
+        </svg>
+        <svg class="photo-doodle pd-2" viewBox="0 0 50 50" width="40" height="40">
+          <path d="M25,5 L30,18 L45,20 L33,30 L37,45 L25,37 L13,45 L17,30 L5,20 L20,18 Z" stroke="#8EAFC4"
+            stroke-width="1.2" fill="none" stroke-linecap="round" stroke-dasharray="200" stroke-dashoffset="200" />
+        </svg>
+      </div>
+
+      <!-- Paper Tear Edge Simulator -->
+      <div class="torn-edge-bottom"
+        style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 10\' preserveAspectRatio=\'none\'><path d=\'M0,0 L0,10 L100,10 L100,0 C90,5 80,-2 70,3 C60,8 50,0 40,5 C30,10 20,-1 10,4 C5,6 0,0 0,0 Z\' fill=\'%23FAF7F0\'/></svg>');">
+      </div>
+    </section>
+
+    <!-- ═══════════ ABOUT SECTION ═══════════ -->
+    <section id="about" class="section about-section">
+      <div class="about-paper">
+        <div class="about-ruled-lines"></div>
+        <div class="about-fold"></div>
+        <div class="about-coffee-stain"></div>
+
+        <div class="about-content">
+          <div class="about-header">
+            <h2 class="section-title" data-split>About Me</h2>
+            <svg class="about-underline" viewBox="0 0 250 15" width="250" height="15">
+              <path d="M0,10 Q50,2 100,8 T200,6 T250,10" stroke="#D4956A" stroke-width="2.5" fill="none"
+                stroke-linecap="round" stroke-dasharray="300" stroke-dashoffset="300" />
+            </svg>
+          </div>
+
+          <div class="about-polaroid parallax-element" data-depth="0.15">
+            <img src="/src/assets/profile/profile.jpeg" alt="Aqbil working" />
+            <span class="handwritten polaroid-caption">that's me! 👋</span>
+            <div class="polaroid-tape"></div>
+          </div>
+
+          <div class="about-text">
+            <p class="about-paragraph" data-split>
+              Hi, I'm Aqbil — a creative frontend developer who believes that the web should feel alive. Every pixel,
+              every motion, every interaction tells a story.
+            </p>
+            <p class="about-paragraph" data-split>
+              I blend code with craft, turning digital interfaces into immersive experiences that move, breathe, and
+              respond. My work lives at the intersection of design and engineering.
+            </p>
+            <p class="about-paragraph" data-split>
+              When I'm not animating the web, you'll find me sketching in notebooks, collecting vintage papers, and
+              dreaming up new ways to make screens feel like handmade worlds.
+            </p>
+          </div>
+
+          <div class="about-sticky handwritten parallax-element" data-depth="0.1">
+            <p>✦ Favorite tool: GSAP</p>
+            <p>✦ Coffee: always</p>
+            <p>✦ Music: lo-fi beats</p>
+            <div class="sticky-tape-sm"></div>
+          </div>
+        </div>
+
+        <!-- Ink diffusion blob -->
+        <svg class="about-ink-blob" viewBox="0 0 200 200" width="150" height="150">
+          <path class="ink-morph-path"
+            d="M100,20 Q140,20 160,50 Q180,80 170,120 Q160,160 120,170 Q80,180 50,150 Q20,120 30,80 Q40,40 70,25 Z"
+            fill="rgba(139,109,78,0.06)" />
+        </svg>
+      </div>
+
+      <!-- Paper Tear Edge Simulator -->
+      <div class="torn-edge-bottom"
+        style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 10\' preserveAspectRatio=\'none\'><path d=\'M0,0 L0,10 L100,10 L100,0 C90,5 80,-2 70,3 C60,8 50,0 40,5 C30,10 20,-1 10,4 C5,6 0,0 0,0 Z\' fill=\'%23F5ECD7\'/></svg>');">
+      </div>
+    </section>
+
+    <!-- ═══════════ SKILLS SECTION ═══════════ -->
+    <section id="skills" class="section skills-section">
+      <div class="skills-header">
+        <h2 class="section-title" data-split>My Toolkit</h2>
+        <p class="section-subtitle handwritten" data-split>tools I love working with</p>
+        <svg class="section-squiggle" viewBox="0 0 200 12" width="200" height="12">
+          <path d="M0,6 Q25,0 50,6 T100,6 T150,6 T200,6" stroke="#8EAFC4" stroke-width="2" fill="none"
+            stroke-linecap="round" stroke-dasharray="250" stroke-dashoffset="250" />
+        </svg>
+      </div>
+
+      <!-- Chalkboard System Wrapper -->
+      <div class="chalkboard-container">
+        <div class="chalkboard-frame">
+          <div class="chalkboard-shelf">
+            <div class="chalk-stick white"></div>
+            <div class="chalk-stick pink"></div>
+            <div class="chalkboard-eraser"></div>
+          </div>
+
+          <div class="chalkboard">
+            <div class="skills-grid" id="skills-grid">
+              <!-- Generated by JS with high-fidelity chalk badges -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Paper Tear Edge Simulator -->
+      <div class="torn-edge-bottom"
+        style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 10\' preserveAspectRatio=\'none\'><path d=\'M0,0 L0,10 L100,10 L100,0 C90,5 80,-2 70,3 C60,8 50,0 40,5 C30,10 20,-1 10,4 C5,6 0,0 0,0 Z\' fill=\'%23FAF7F0\'/></svg>');">
+      </div>
+    </section>
+
+    <!-- ═══════════ PROJECTS SECTION ═══════════ -->
+    <section id="projects" class="section projects-section">
+      <div class="projects-header">
+        <h2 class="section-title" data-split>Selected Work</h2>
+        <p class="section-subtitle handwritten" data-split>projects that tell stories</p>
+        <svg class="section-squiggle" viewBox="0 0 200 12" width="200" height="12">
+          <path d="M0,6 Q25,0 50,6 T100,6 T150,6 T200,6" stroke="#C47A6E" stroke-width="2" fill="none"
+            stroke-linecap="round" stroke-dasharray="250" stroke-dashoffset="250" />
+        </svg>
+      </div>
+      <div class="projects-container" id="projects-container">
+        <!-- Generated by JS -->
+      </div>
+
+      <!-- Paper Tear Edge Simulator -->
+      <div class="torn-edge-bottom"
+        style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 10\' preserveAspectRatio=\'none\'><path d=\'M0,0 L0,10 L100,10 L100,0 C90,5 80,-2 70,3 C60,8 50,0 40,5 C30,10 20,-1 10,4 C5,6 0,0 0,0 Z\' fill=\'%23F5ECD7\'/></svg>');">
+      </div>
+    </section>
+
+    <!-- ═══════════ PLAYGROUND SECTION ═══════════ -->
+    <section id="playground" class="section playground-section">
+      <div class="playground-header">
+        <h2 class="section-title" data-split>Playground</h2>
+        <p class="section-subtitle handwritten" data-split>drag, throw, play! 🎨</p>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="playground-toolbar" id="playground-toolbar">
+        <button class="pg-tool-btn" id="pg-add-paper" title="Add Paper Note">
+          <span class="pg-tool-icon">📝</span>
+          <span class="pg-tool-label">Paper</span>
+        </button>
+        <button class="pg-tool-btn" id="pg-add-emoji" title="Add Emoji Sticker">
+          <span class="pg-tool-icon">😀</span>
+          <span class="pg-tool-label">Emoji</span>
+        </button>
+        <button class="pg-tool-btn" id="pg-pencil-toggle" title="Draw with Pencil">
+          <span class="pg-tool-icon">✏️</span>
+          <span class="pg-tool-label">Pencil</span>
+        </button>
+        <div class="pg-pencil-options" id="pg-pencil-options" style="display:none;">
+          <input type="color" id="pg-pencil-color" value="#2C2C2C" title="Pen Color" />
+          <input type="range" id="pg-pencil-size" min="1" max="12" value="3" title="Pen Size" />
+          <button class="pg-tool-btn-sm" id="pg-pencil-clear" title="Clear Drawing">🗑️</button>
+        </div>
+      </div>
+
+      <div class="playground-area" id="playground-area">
+        <!-- Drawing canvas (behind draggable items) -->
+        <canvas id="playground-canvas" class="playground-canvas"></canvas>
+        <!-- Interactive draggable elements generated by JS -->
+      </div>
+      <p class="playground-hint handwritten">← drag things around →</p>
+
+      <!-- Paper creation modal -->
+      <div class="pg-modal" id="pg-paper-modal" style="display:none;">
+        <div class="pg-modal-content">
+          <h3 class="handwritten pg-modal-title">Create a Note ✨</h3>
+          <div class="pg-modal-field">
+            <label class="handwritten">Pick a color:</label>
+            <div class="pg-color-options" id="pg-color-options">
+              <button class="pg-color-swatch active" data-color="" style="background:#FFF9C4;" title="Yellow"></button>
+              <button class="pg-color-swatch" data-color="pink" style="background:#FCE4EC;" title="Pink"></button>
+              <button class="pg-color-swatch" data-color="blue" style="background:#E3F2FD;" title="Blue"></button>
+              <button class="pg-color-swatch" data-color="green" style="background:#E8F5E9;" title="Green"></button>
+              <button class="pg-color-swatch" data-color="orange" style="background:#FFF3E0;" title="Orange"></button>
+              <button class="pg-color-swatch" data-color="purple" style="background:#F3E5F5;" title="Purple"></button>
+              <button class="pg-color-swatch" data-color="white" style="background:#FFFFFF; border:1px solid #ddd;"
+                title="White"></button>
+            </div>
+          </div>
+          <div class="pg-modal-field">
+            <label class="handwritten">Write something:</label>
+            <textarea id="pg-paper-text" class="pg-paper-input handwritten" placeholder="Type your note..." rows="3"
+              maxlength="120"></textarea>
+          </div>
+          <div class="pg-modal-actions">
+            <button class="btn-paper pg-modal-cancel" id="pg-paper-cancel">Cancel</button>
+            <button class="btn-paper pg-modal-add" id="pg-paper-add">Add Note ✦</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emoji picker modal -->
+      <div class="pg-modal" id="pg-emoji-modal" style="display:none;">
+        <div class="pg-modal-content pg-emoji-picker-content">
+          <h3 class="handwritten pg-modal-title">Pick an Emoji 🎉</h3>
+          <div class="pg-emoji-grid" id="pg-emoji-grid">
+            <!-- Emoji grid filled by JS -->
+          </div>
+          <div class="pg-modal-actions">
+            <button class="btn-paper pg-modal-cancel" id="pg-emoji-cancel">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paper Tear Edge Simulator -->
+      <div class="torn-edge-bottom"
+        style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 10\' preserveAspectRatio=\'none\'><path d=\'M0,0 L0,10 L100,10 L100,0 C90,5 80,-2 70,3 C60,8 50,0 40,5 C30,10 20,-1 10,4 C5,6 0,0 0,0 Z\' fill=\'%23FAF7F0\'/></svg>');">
+      </div>
+    </section>
+
+    <!-- ═══════════ CONTACT SECTION ═══════════ -->
+    <section id="contact" class="section contact-section">
+      <div class="contact-letter">
+        <div class="letter-flap"></div>
+        <div class="letter-body">
+          <div class="contact-content">
+            <h2 class="contact-headline" data-split>Let's Create Something Beautiful Together</h2>
+            <p class="contact-text handwritten" data-split>I'm always open to new adventures, collaborations, and
+              creative challenges. Drop me a line!</p>
+
+            <svg class="contact-signature" viewBox="0 0 300 80" width="200" height="53">
+              <path class="signature-path"
+                d="M20,60 Q40,20 60,50 Q80,80 100,40 Q120,10 140,50 Q160,70 180,35 Q200,10 220,45 Q240,70 260,30 Q270,15 280,25"
+                stroke="#2C2C2C" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="500"
+                stroke-dashoffset="500" />
+            </svg>
+
+            <div class="contact-buttons">
+              <a href="mailto:aqbil@example.com" class="btn-paper contact-btn" id="contact-email-btn">
+                <span data-split>✉ Email Me</span>
+              </a>
+              <a href="https://github.com" target="_blank" class="btn-paper contact-btn" id="contact-github-btn">
+                <span data-split>⚡ GitHub</span>
+              </a>
+              <a href="https://linkedin.com" target="_blank" class="btn-paper contact-btn" id="contact-linkedin-btn">
+                <span data-split>🔗 LinkedIn</span>
+              </a>
+              <a href="https://twitter.com" target="_blank" class="btn-paper contact-btn" id="contact-twitter-btn">
+                <span data-split>🐦 Twitter</span>
+              </a>
+            </div>
+          </div>
+          <!-- Floating paper particles -->
+          <div class="paper-particles" id="paper-particles"></div>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        <p class="handwritten">Created by Aqbil Dzaky Nauval — 2026</p>
+      </footer>
+    </section>
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

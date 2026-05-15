@@ -1,0 +1,328 @@
+/* ══════════════════════════════════════════════════════════════
+   PROJECTS SECTION — Modern Scrapbook Design
+   ══════════════════════════════════════════════════════════════ */
+
+.projects-section {
+  padding: var(--section-padding) 40px;
+  background-color: var(--paper-white);
+  position: relative;
+}
+
+.projects-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.projects-container {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 120px; /* space-y-32 approx */
+}
+
+/* Project Card Flex Layout */
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .project-card {
+    flex-direction: row;
+  }
+  
+  .project-card:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+}
+
+/* Scrapbook Image Container */
+.project-image-container {
+  position: relative;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .project-image-container {
+    width: 60%; /* w-3/5 */
+  }
+}
+
+/* Overlapping Back Paper Layer */
+.project-back-paper {
+  position: absolute;
+  inset: 0;
+  background-color: #E0D8C3;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px rgba(44, 44, 44, 0.08);
+  z-index: 0;
+  margin-top: 16px;
+  margin-left: 16px;
+  transform: rotate(3deg);
+  transition: transform 0.6s ease;
+}
+
+.project-card:nth-child(even) .project-back-paper {
+  background-color: #E8E1D5;
+  margin-left: -16px;
+  transform: rotate(-2deg);
+}
+
+.project-card:hover .project-back-paper {
+  transform: rotate(1deg);
+}
+
+/* Primary Scrapbook Image Wrapper */
+.project-image-wrapper {
+  position: relative;
+  z-index: 10;
+  background-color: var(--cream); /* Like bg-[var(--vintage-cream)] */
+  padding: 16px; /* p-4 */
+  box-shadow: 0 20px 40px rgba(44, 44, 44, 0.12);
+  transform: rotate(-1deg);
+  transition: all 0.5s var(--ease-out-expo);
+}
+
+.project-card:nth-child(even) .project-image-wrapper {
+  background-color: #FFFFFF;
+  transform: rotate(2deg);
+}
+
+.project-card:hover .project-image-wrapper {
+  transform: rotate(1deg);
+}
+
+.project-card:nth-child(even):hover .project-image-wrapper {
+  transform: rotate(-1deg);
+}
+
+/* Aspect ratio and Overflow Hidden */
+.project-aspect-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.project-aspect-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-out-expo), filter 0.8s ease;
+}
+
+.project-card:nth-child(even) .project-aspect-wrapper img {
+  filter: grayscale(100%);
+}
+
+.project-card:nth-child(even):hover .project-aspect-wrapper img {
+  filter: grayscale(0%);
+}
+
+.project-card:hover .project-aspect-wrapper img {
+  transform: scale(1.05);
+}
+
+/* Tape Overlays */
+.project-tape {
+  position: absolute;
+  top: -10px;
+  left: 40px;
+  width: 90px;
+  height: 26px;
+  background: var(--tape-yellow);
+  opacity: 0.6;
+  transform: rotate(-5deg);
+  z-index: 20;
+  pointer-events: none;
+}
+
+.project-card:nth-child(even) .project-tape {
+  left: auto;
+  right: 40px;
+  transform: rotate(5deg);
+}
+
+/* Wow Sticker */
+.project-sticker {
+  position: absolute;
+  top: -32px;
+  right: -32px;
+  width: 80px;
+  height: 80px;
+  z-index: 30;
+  transform: rotate(12deg);
+  filter: drop-shadow(0 4px 6px rgba(44,44,44,0.15));
+  animation: pulseSticker 2.5s ease-in-out infinite;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .project-sticker {
+    display: block;
+  }
+}
+
+@keyframes pulseSticker {
+  0%, 100% { transform: rotate(12deg) scale(1); }
+  50% { transform: rotate(15deg) scale(1.05); }
+}
+
+/* Details Information */
+.project-info {
+  position: relative;
+  width: 100%;
+  z-index: 20;
+}
+
+@media (min-width: 768px) {
+  .project-info {
+    width: 40%; /* w-2/5 */
+  }
+  
+  .project-card:nth-child(even) .project-info {
+    text-align: right;
+  }
+}
+
+.project-category {
+  font-family: var(--font-handwritten);
+  font-size: 1.2rem;
+  color: var(--dusty-blue);
+  margin-bottom: 8px;
+}
+
+.project-title {
+  font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+  font-weight: 800;
+  font-family: var(--font-serif);
+  margin-bottom: 16px;
+  line-height: 1.15;
+  transition: color 0.3s ease;
+}
+
+.project-card:hover .project-title {
+  color: var(--muted-orange);
+}
+
+.project-description {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(44, 44, 44, 0.75);
+  margin-bottom: 20px;
+}
+
+/* Keep Tags */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.project-card:nth-child(even) .project-tags {
+  justify-content: flex-end;
+}
+
+.project-tag {
+  font-family: var(--font-handwritten);
+  font-size: 0.9rem;
+  padding: 3px 12px;
+  background: var(--cream);
+  border: 1px dashed var(--soft-brown);
+  border-radius: 20px;
+  color: var(--deep-brown);
+}
+
+/* Premium Uppercase Case Study Link */
+.project-link-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  color: var(--ink-black);
+  border-bottom: 2px solid var(--ink-black);
+  padding-bottom: 4px;
+  transition: all 0.3s ease;
+}
+
+.project-link-premium:hover {
+  color: var(--soft-brown);
+  border-bottom-color: var(--soft-brown);
+}
+
+.project-link-premium .link-arrow {
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-link-premium .link-arrow {
+  transform: translateX(6px);
+}
+
+.project-card:nth-child(even) .project-link-premium .link-arrow {
+  order: -1;
+  transform: rotate(180deg);
+}
+
+.project-card:nth-child(even):hover .project-link-premium .link-arrow {
+  transform: rotate(180deg) translateX(6px);
+}
+
+/* Floating Hover Doodle */
+.project-hover-doodle {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  font-size: 1.5rem;
+  color: var(--muted-orange);
+  font-family: var(--font-handwritten);
+  transform: rotate(12deg);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.project-card:nth-child(even) .project-hover-doodle {
+  right: auto;
+  left: -40px;
+  transform: rotate(-12deg);
+}
+
+.project-card:hover .project-hover-doodle {
+  opacity: 1;
+  transform: rotate(12deg) translateY(-10px);
+}
+
+.project-card:nth-child(even):hover .project-hover-doodle {
+  transform: rotate(-12deg) translateY(-10px);
+}
+
+/* Responsive spacing tweaks */
+@media (max-width: 768px) {
+  .project-card {
+    gap: 24px;
+  }
+  
+  .project-card:nth-child(even) .project-tags {
+    justify-content: flex-start;
+  }
+  
+  .project-aspect-wrapper img {
+    filter: none !important;
+  }
+  
+  .project-hover-doodle {
+    display: none;
+  }
+}
+

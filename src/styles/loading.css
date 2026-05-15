@@ -1,0 +1,331 @@
+/* ══════════════════════════════════════════════════════════════
+   LOADING SCREEN - PAPER UNIVERSE CINEMATIC LOADER
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  --l-paper-bg: #f4ecd8;
+  --l-paper-dark: #e8ddc5;
+  --l-ink: #1a1a1a;
+  --l-ink-light: #2c2c2c;
+  --l-accent-orange: #d97757;
+  --l-accent-blue: #7a8b99;
+  --l-shadow-soft: 0 20px 40px rgba(0,0,0,0.06);
+  --l-shadow-deep: 0 30px 60px rgba(0,0,0,0.12);
+}
+
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 100000;
+  background-color: #050505;
+}
+
+#paper-surface {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--l-paper-bg);
+  opacity: 0;
+}
+
+.paper-texture-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 50;
+  mix-blend-mode: multiply;
+  opacity: 0;
+}
+
+#dust-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.dust {
+  position: absolute;
+  background: rgba(0,0,0,0.1);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+#collage-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: auto;
+  display: flex;
+  justify-content: space-between;
+  padding-left: -5%;
+  padding-right: -5%;
+  align-items: center;
+  overflow: hidden;
+  gap: 1rem;
+  transform: scale(1.1);
+}
+
+.col-track {
+  width: 20%;
+  height: 200vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  position: absolute;
+}
+
+.col-track:nth-child(1) { left: 0%; }
+.col-track:nth-child(2) { left: 20%; }
+.col-track:nth-child(3) { left: 40%; }
+.col-track:nth-child(4) { left: 60%; }
+.col-track:nth-child(5) { left: 80%; }
+
+.polaroid {
+  background: #fff;
+  padding: 10px 10px 40px 10px;
+  box-shadow: var(--l-shadow-soft);
+  border-radius: 2px;
+  position: relative;
+  transform-origin: center;
+  will-change: transform;
+  transition: box-shadow 0.4s ease;
+}
+
+.polaroid:hover {
+  box-shadow: var(--l-shadow-deep);
+  z-index: 40 !important;
+}
+
+.polaroid img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  filter: sepia(0.2) contrast(1.1) brightness(0.9);
+  transition: filter 0.4s;
+}
+
+.polaroid:hover img {
+  filter: sepia(0) contrast(1) brightness(1);
+}
+
+.tape-collage {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 60px;
+  height: 25px;
+  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  clip-path: polygon(2% 0, 98% 4%, 100% 96%, 0% 100%);
+  z-index: 2;
+}
+
+.polaroid-caption-new {
+  font-family: 'Caveat', cursive;
+  color: var(--l-ink-light);
+  font-size: 1.25rem;
+  text-align: center;
+  margin-top: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#ink-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  pointer-events: none;
+}
+
+#ink-splat {
+  width: 8rem;
+  height: 8rem;
+  opacity: 0;
+  transform: scale(0);
+  fill: var(--l-ink);
+}
+
+#doodles-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.draw-path {
+  fill: none;
+  stroke: var(--l-ink);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#text-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  #text-container {
+    padding: 0 3rem;
+  }
+}
+
+.text-bg-stroke-svg {
+  position: absolute;
+  z-index: -10;
+  width: 90%;
+  max-width: 800px;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#name-reveal {
+  opacity: 0;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--l-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+  line-height: 1.15;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  z-index: 10;
+  text-align: center;
+  font-size: 3rem;
+}
+
+@media (min-width: 768px) {
+  #name-reveal {
+    font-size: 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #name-reveal {
+    font-size: 7.5rem;
+  }
+}
+
+/* Flex styling for dynamic split words */
+#name-reveal.flex-parent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  #name-reveal.flex-parent {
+    column-gap: 1.5rem;
+  }
+}
+
+.word.flex-word {
+  display: flex;
+}
+
+.char.split-char {
+  transform-origin: center;
+  opacity: 0;
+  transform: translateY(2rem) rotate(12deg);
+  display: block;
+}
+
+#subtitle-wrapper {
+  margin-top: 1rem;
+  opacity: 0;
+  width: 100%;
+  max-width: 700px;
+  position: relative;
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  #subtitle-wrapper {
+    margin-top: 2rem;
+  }
+}
+
+.subtitle-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.handwriting-l {
+  font-family: 'Caveat', cursive;
+  color: var(--l-ink-light);
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+#progress-container {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16rem;
+  z-index: 50;
+}
+
+@media (min-width: 768px) {
+  #progress-container {
+    width: 24rem;
+  }
+}
+
+.progress-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+#progress-text {
+  font-family: 'Caveat', cursive;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  color: var(--l-ink-light);
+  opacity: 0;
+}

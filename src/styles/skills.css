@@ -1,0 +1,390 @@
+/* ══════════════════════════════════════════════════════════════
+   SKILLS SECTION — Immersive Chalkboard Design
+   ══════════════════════════════════════════════════════════════ */
+
+.skills-section {
+  padding: var(--section-padding) 40px;
+  background-color: var(--cream);
+  position: relative;
+  overflow: hidden;
+  /* Prevent levitating elements overflow */
+}
+
+.skills-header {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 10;
+}
+
+/* ── FLOATING BACKGROUND DOODLES ── */
+.floating-doodle {
+  position: absolute;
+  font-size: 2rem;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+  opacity: 0.55;
+  filter: blur(0.5px);
+}
+
+.fd-1 {
+  top: 15%;
+  left: 5%;
+  font-size: 2.2rem;
+}
+
+.fd-2 {
+  top: 35%;
+  right: 6%;
+  font-size: 2rem;
+}
+
+.fd-3 {
+  bottom: 25%;
+  left: 8%;
+  font-size: 2.5rem;
+}
+
+.fd-4 {
+  bottom: 40%;
+  right: 8%;
+  font-size: 2rem;
+}
+
+.fd-5 {
+  top: 60%;
+  left: 4%;
+  font-size: 2.2rem;
+}
+
+.fd-6 {
+  top: 20%;
+  left: 20%;
+}
+
+.fd-7 {
+  bottom: 15%;
+  right: 22%;
+}
+
+/* ── CHALKBOARD CONTAINER ── */
+.chalkboard-container {
+  max-width: 1120px;
+  /* Enlarged size for grander presentation */
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+/* Elegant Wooden Frame */
+.chalkboard-frame {
+  background: #4a3525;
+  /* Rich dark wood */
+  border: 16px solid #3a271a;
+  /* Slightly thicker frame */
+  border-radius: 14px;
+  box-shadow:
+    inset 0 3px 6px rgba(0, 0, 0, 0.4),
+    0 16px 48px rgba(44, 44, 44, 0.28),
+    0 45px 90px rgba(44, 44, 44, 0.18);
+  padding: 16px;
+  position: relative;
+}
+
+/* Authentic Wooden Chalk Shelf */
+.chalkboard-shelf {
+  position: absolute;
+  bottom: -28px;
+  left: 30px;
+  right: 30px;
+  height: 16px;
+  background: #3a271a;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 15;
+}
+
+.chalk-stick {
+  position: absolute;
+  bottom: 14px;
+  width: 40px;
+  height: 8px;
+  border-radius: 2px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.chalk-stick.white {
+  right: 80px;
+  background: #FFFFFF;
+  transform: rotate(-6deg);
+}
+
+.chalk-stick.pink {
+  right: 130px;
+  background: #ffd6e8;
+  transform: rotate(4deg);
+}
+
+.chalkboard-eraser {
+  position: absolute;
+  bottom: 14px;
+  right: 20px;
+  width: 50px;
+  height: 16px;
+  background: #8EAFC4;
+  /* Blue sponge */
+  border-top: 6px solid #5C4A3A;
+  /* Wooden handle */
+  border-radius: 2px;
+  transform: rotate(-2deg);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* The Chalkboard Slate */
+.chalkboard {
+  background-color: #1c2922;
+  /* Classic Slate Green */
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%),
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.008) 0px, rgba(255, 255, 255, 0.008) 1px, transparent 1px, transparent 8px);
+  /* Dusty texture */
+  border-radius: 8px;
+  box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.65);
+  padding: 70px 40px;
+  /* Expanded inner padding */
+  min-height: 520px;
+  /* Much taller and larger chalkboard */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Overlay Chalk Dust Texture */
+.chalkboard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── SKILLS GRID & BADGES (TAPED PAPERS) ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px 40px;
+  justify-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+}
+
+.skill-badge-wrapper {
+  position: relative;
+  width: auto;
+  height: auto;
+  padding: 12px;
+  /* Added breathing room so scaling/hover is not clipped */
+  clip-path: inset(0% 0% 0% 0%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  will-change: clip-path;
+}
+
+.skill-badge {
+  position: relative;
+  width: 145px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--paper-note-bg, #FAF7F0);
+  /* Taped paper color! */
+  border-radius: 2px;
+  box-shadow:
+    2px 4px 10px rgba(0, 0, 0, 0.35),
+    0 10px 20px rgba(0, 0, 0, 0.2);
+  /* Rich shadow on top of board */
+  padding: 20px 12px 10px;
+  cursor: grab;
+  user-select: none;
+  opacity: 1;
+  will-change: transform;
+  transform: rotate(var(--badge-tilt, 0deg));
+  transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease;
+
+  /* Realistic paper torn bottom path */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 92% 100%, 82% 95%, 70% 100%, 50% 96%, 36% 100%, 20% 95%, 8% 100%, 0% 96%);
+}
+
+.skill-badge:active {
+  cursor: grabbing;
+}
+
+.skill-badge:hover {
+  transform: translateY(-5px) scale(1.08) rotate(var(--badge-tilt, 0deg)) !important;
+  box-shadow:
+    4px 8px 20px rgba(0, 0, 0, 0.45),
+    0 15px 30px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+}
+
+.skill-icon {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* INK TEXT STYLE: High-contrast handwritten on paper */
+.skill-name {
+  font-family: var(--font-handwritten);
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  letter-spacing: 0.2px;
+  color: var(--ink-black) !important;
+  /* Stripped chalk effects */
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* MASKING TAPE DETAIL */
+.skill-tape {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(var(--tape-rotate, 2deg));
+  width: 55px;
+  height: 18px;
+  background: rgba(232, 213, 163, 0.65);
+  /* Translucent washi tape */
+  border-left: 1.5px dashed rgba(0, 0, 0, 0.06);
+  border-right: 1.5px dashed rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  pointer-events: none;
+}
+
+
+/* Responsive Spacing */
+@media (max-width: 768px) {
+  .skills-section {
+    padding: var(--section-padding) 20px;
+  }
+
+  .chalkboard-container {
+    padding: 0 5px;
+  }
+
+  .chalkboard-frame {
+    border-width: 10px;
+    padding: 6px;
+  }
+
+  .chalkboard {
+    padding: 30px 15px;
+    min-height: 350px;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .skill-badge {
+    width: 110px;
+    height: 135px;
+  }
+
+  .skill-name {
+    font-size: 1.1rem;
+  }
+
+  .floating-doodle {
+    display: none;
+    /* Hide levitation on small screens for cleanliness */
+  }
+}
+
+/* ── CHALKBOARD PAGINATION & DUST ── */
+.chalk-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 32px;
+  position: relative;
+  z-index: 10;
+}
+
+.chalk-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s var(--ease-out-expo), opacity 0.3s;
+  opacity: 0.8;
+}
+
+.chalk-btn:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.chalk-btn:active {
+  transform: scale(0.9);
+}
+
+.chalk-btn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.chalk-btn svg path {
+  stroke: #FFFFFF;
+  filter: drop-shadow(0 0 2.5px rgba(255, 255, 255, 0.75));
+}
+
+.chalk-indicator {
+  font-family: var(--font-handwritten);
+  color: #FFFFFF;
+  font-size: 1.6rem;
+  opacity: 0.9;
+  letter-spacing: 1px;
+  user-select: none;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+.chalk-dust {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 12;
+  filter: blur(1.2px);
+}
+
+.skill-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}

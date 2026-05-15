@@ -1,0 +1,200 @@
+/* ══════════════════════════════════════════════════════════════
+   ABOUT SECTION
+   ══════════════════════════════════════════════════════════════ */
+
+.about-section {
+  padding: var(--section-padding) 40px;
+  background-color: var(--paper-white);
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.about-paper {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  background: white;
+  padding: 60px 50px;
+  box-shadow:
+    0 2px 8px var(--light-shadow),
+    0 8px 24px rgba(44, 44, 44, 0.08),
+    0 16px 48px rgba(44, 44, 44, 0.06);
+  border-radius: 2px;
+}
+
+.about-ruled-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      rgba(142, 175, 196, 0.35) 31px, /* Darker/Thicker ink lines */
+      rgba(142, 175, 196, 0.35) 32px
+    );
+  background-size: 100% 32px;
+  background-position: 0 28px;
+  opacity: 0.95; /* Solid presence on the card */
+}
+
+/* Red margin line */
+.about-ruled-lines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 70px;
+  bottom: 0;
+  width: 2px; /* Thicker margin line */
+  background: rgba(196, 122, 110, 0.45); /* More visible red ink */
+}
+
+
+.about-fold {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(225deg, var(--warm-beige) 50%, transparent 50%);
+  box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.04);
+  z-index: 5;
+}
+
+.about-coffee-stain {
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(139, 109, 78, 0.06) 0%,
+    rgba(139, 109, 78, 0.1) 35%,
+    rgba(139, 109, 78, 0.03) 50%,
+    rgba(139, 109, 78, 0.08) 60%,
+    transparent 70%
+  );
+  pointer-events: none;
+  opacity: 0;
+}
+
+.about-content {
+  position: relative;
+  z-index: 2;
+}
+
+.about-header {
+  margin-bottom: 40px;
+}
+
+.about-header .section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.about-polaroid {
+  float: right;
+  margin: 0 0 20px 30px;
+  background: white;
+  padding: 10px 10px 35px;
+  box-shadow: 0 4px 16px var(--medium-shadow);
+  transform: rotate(3deg);
+  position: relative;
+  max-width: 220px;
+}
+
+.about-polaroid img {
+  width: 200px;
+  height: 160px;
+  object-fit: cover;
+}
+
+.polaroid-caption {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: var(--soft-brown);
+}
+
+.polaroid-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 70px;
+  height: 20px;
+  background: var(--tape-yellow);
+  opacity: 0.7;
+}
+
+.about-text {
+  margin-bottom: 30px;
+}
+
+.about-paragraph {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.8;
+  color: var(--ink-black);
+  margin-bottom: 20px;
+  opacity: 0;
+}
+
+.about-sticky {
+  position: absolute;
+  bottom: -20px;
+  right: 40px;
+  background: #FFF9C4;
+  padding: 16px 14px;
+  box-shadow: 2px 3px 8px var(--light-shadow);
+  transform: rotate(4deg);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--deep-brown);
+  z-index: 6;
+  opacity: 0;
+}
+
+.sticky-tape-sm {
+  position: absolute;
+  top: -8px;
+  left: 30%;
+  width: 50px;
+  height: 16px;
+  background: var(--tape-yellow);
+  opacity: 0.7;
+  transform: rotate(-2deg);
+}
+
+.about-ink-blob {
+  position: absolute;
+  bottom: 20%;
+  left: -30px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-section {
+    padding: var(--section-padding) 20px;
+  }
+  .about-paper {
+    padding: 40px 25px;
+  }
+  .about-polaroid {
+    float: none;
+    margin: 0 auto 30px;
+  }
+  .about-sticky {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-top: 20px;
+  }
+  .about-ruled-lines::before {
+    left: 30px;
+  }
+}

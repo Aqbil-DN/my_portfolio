@@ -1,0 +1,522 @@
+/* ══════════════════════════════════════════════════════════════
+   PLAYGROUND SECTION
+   ══════════════════════════════════════════════════════════════ */
+
+.playground-section {
+  padding: var(--section-padding) 40px;
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(ellipse at 50% 50%, rgba(212,149,106,0.05) 0%, transparent 60%);
+  position: relative;
+  min-height: 80vh;
+}
+
+.playground-header {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 5;
+}
+
+/* ── Toolbar ── */
+.playground-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 12px 20px;
+  background: var(--paper-white);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(44,44,44,0.08), 0 1px 4px rgba(44,44,44,0.06);
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 20;
+  flex-wrap: wrap;
+}
+
+.pg-tool-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  background: var(--warm-beige);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: var(--font-handwritten);
+  font-size: 0.95rem;
+  color: var(--deep-brown);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.pg-tool-btn:hover {
+  background: #f3e0cc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(44,44,44,0.1);
+}
+
+.pg-tool-btn.active {
+  background: var(--muted-orange);
+  color: white;
+  border-color: var(--muted-orange);
+  box-shadow: 0 4px 16px rgba(212,149,106,0.3);
+}
+
+.pg-tool-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.pg-tool-label {
+  font-size: 0.9rem;
+}
+
+/* Pencil sub-options */
+.pg-pencil-options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 10px;
+  border: 1px dashed rgba(184,162,142,0.4);
+}
+
+.pg-pencil-options input[type="color"] {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--warm-beige);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 2px;
+  background: none;
+}
+
+.pg-pencil-options input[type="range"] {
+  width: 80px;
+  accent-color: var(--muted-orange);
+  cursor: pointer;
+}
+
+.pg-tool-btn-sm {
+  padding: 6px 10px;
+  background: none;
+  border: 1px solid rgba(184,162,142,0.4);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.pg-tool-btn-sm:hover {
+  background: #fde8e8;
+  border-color: #e57373;
+}
+
+/* ── Playground area (Transformed into a High-Fidelity Whiteboard) ── */
+.playground-area {
+  position: relative;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  min-height: 580px;
+  background-color: #ffffff; /* Premium pure white board surface */
+  /* Faint, elegant dot grid to support the creative whiteboard feeling */
+  background-image: radial-gradient(#f1f1f1 2px, transparent 2px);
+  background-size: 30px 30px; 
+  
+  /* High-fidelity silver aluminum frame */
+  border: 12px solid #E5E7EB; 
+  outline: 2px solid #D1D5DB;
+  border-radius: 14px;
+  padding: 30px;
+  overflow: hidden;
+  
+  /* Layered dimensional shadowing */
+  box-shadow: 
+    inset 0 4px 10px rgba(0,0,0,0.05), /* Inner surface depth shadow */
+    0 12px 32px rgba(67,51,42,0.08),  /* Outer floating depth on wall */
+    0 2px 6px rgba(0,0,0,0.04);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Physical Marker Tray (Skeuomorphic detail) */
+.playground-area::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  right: 30%;
+  height: 10px;
+  background: linear-gradient(to bottom, #D1D5DB, #9CA3AF);
+  border-radius: 6px 6px 0 0;
+  border: 1px solid #9CA3AF;
+  box-shadow: 
+    0 -2px 5px rgba(0,0,0,0.15),
+    inset 0 1px 2px rgba(255,255,255,0.8);
+  z-index: 150;
+  pointer-events: none;
+}
+
+/* Drawing canvas */
+.playground-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none; /* Only enabled when pencil active */
+}
+
+.playground-canvas.drawing-active {
+  pointer-events: auto;
+  cursor: crosshair;
+  z-index: 200;
+}
+
+/* Items sit above canvas */
+.playground-item {
+  position: absolute;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  z-index: 5;
+  transition: box-shadow 0.3s var(--ease-out-expo);
+}
+
+.playground-item:active {
+  cursor: grabbing;
+  z-index: 100;
+}
+
+.playground-item:hover {
+  z-index: 50;
+}
+
+/* Sticky note type */
+.playground-item.pg-sticky {
+  width: 140px;
+  padding: 16px 12px;
+  background: #FFF9C4;
+  box-shadow: 2px 3px 8px var(--light-shadow);
+  font-family: var(--font-handwritten);
+  font-size: 0.95rem;
+  color: var(--deep-brown);
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.playground-item.pg-sticky.pink {
+  background: #FCE4EC;
+}
+
+.playground-item.pg-sticky.blue {
+  background: #E3F2FD;
+}
+
+.playground-item.pg-sticky.green {
+  background: #E8F5E9;
+}
+
+.playground-item.pg-sticky.orange {
+  background: #FFF3E0;
+}
+
+.playground-item.pg-sticky.purple {
+  background: #F3E5F5;
+}
+
+.playground-item.pg-sticky.white {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Photo type */
+.playground-item.pg-photo {
+  background: white;
+  padding: 6px;
+  box-shadow: 0 4px 12px var(--medium-shadow);
+}
+
+.playground-item.pg-photo img {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+}
+
+/* Sticker type */
+.playground-item.pg-sticker {
+  font-size: 2.5rem;
+  line-height: 1;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+}
+
+/* Paper scrap type */
+.playground-item.pg-scrap {
+  width: 100px;
+  height: 60px;
+  background: var(--paper-white);
+  border: 1px solid rgba(184, 162, 142, 0.3);
+  box-shadow: 0 2px 8px var(--light-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-handwritten);
+  font-size: 0.85rem;
+  color: var(--soft-brown);
+}
+
+/* Tape type */
+.playground-item.pg-tape {
+  width: 80px;
+  height: 25px;
+  background: var(--tape-yellow);
+  opacity: 0.8;
+}
+
+.playground-item.pg-tape.washi {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--tape-yellow),
+    var(--tape-yellow) 3px,
+    rgba(212, 149, 106, 0.3) 3px,
+    rgba(212, 149, 106, 0.3) 6px
+  );
+}
+
+.playground-hint {
+  text-align: center;
+  color: var(--soft-brown);
+  font-size: 1.1rem;
+  margin-top: 30px;
+  opacity: 0.6;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MODALS
+   ══════════════════════════════════════════════════════════════ */
+.pg-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(44,44,44,0.35);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.pg-modal-content {
+  background: var(--paper-white);
+  border-radius: 18px;
+  padding: 32px 36px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow:
+    0 20px 60px rgba(44,44,44,0.2),
+    0 4px 16px rgba(44,44,44,0.08);
+  position: relative;
+}
+
+.pg-modal-title {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--deep-brown);
+}
+
+.pg-modal-field {
+  margin-bottom: 18px;
+}
+
+.pg-modal-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+  color: var(--soft-brown);
+}
+
+/* Color swatches */
+.pg-color-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pg-color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(44,44,44,0.08);
+}
+
+.pg-color-swatch:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(44,44,44,0.15);
+}
+
+.pg-color-swatch.active {
+  border-color: var(--muted-orange);
+  transform: scale(1.1);
+  box-shadow: 0 2px 12px rgba(212,149,106,0.3);
+}
+
+/* Text input */
+.pg-paper-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px dashed rgba(184,162,142,0.4);
+  border-radius: 12px;
+  background: #FFF9C4;
+  font-size: 1rem;
+  color: var(--deep-brown);
+  resize: none;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.pg-paper-input:focus {
+  border-color: var(--muted-orange);
+  background: #FFFDE7;
+}
+
+.pg-paper-input::placeholder {
+  color: rgba(139,109,78,0.4);
+}
+
+/* Modal actions */
+.pg-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.pg-modal-cancel {
+  opacity: 0.6;
+}
+
+.pg-modal-cancel:hover {
+  opacity: 1;
+}
+
+.pg-modal-add {
+  background: var(--muted-orange) !important;
+  color: white !important;
+  border-color: var(--muted-orange) !important;
+}
+
+/* Emoji picker */
+.pg-emoji-picker-content {
+  max-width: 480px;
+}
+
+.pg-emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 8px;
+  border: 2px dashed rgba(184,162,142,0.2);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.5);
+}
+
+.pg-emoji-btn {
+  width: 100%;
+  aspect-ratio: 1;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pg-emoji-btn:hover {
+  background: rgba(212,149,106,0.15);
+  transform: scale(1.3);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .playground-area {
+    min-height: 400px;
+    padding: 20px;
+  }
+  .playground-section {
+    padding: var(--section-padding) 20px;
+  }
+  .playground-toolbar {
+    gap: 8px;
+    padding: 10px 14px;
+  }
+  .pg-tool-btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+  .pg-emoji-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* ── Deletion Button ── */
+.pg-item-delete {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 22px;
+  height: 22px;
+  background: #FF6B6B;
+  color: white !important;
+  border: 1.5px solid white;
+  border-radius: 50%;
+  font-family: sans-serif !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s var(--ease-out-expo);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  z-index: 500 !important;
+  user-select: none;
+  padding: 0 !important;
+  line-height: 1 !important;
+  text-shadow: none !important;
+}
+
+/* Specialize for stickers since they have transparent bg */
+.pg-sticker .pg-item-delete {
+  top: 0px;
+  right: 0px;
+}
+
+.playground-item:hover .pg-item-delete {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pg-item-delete:hover {
+  background: #FF3B30;
+  transform: scale(1.2);
+  box-shadow: 0 3px 8px rgba(255, 59, 48, 0.4);
+}
+

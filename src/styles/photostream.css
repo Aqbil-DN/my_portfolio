@@ -1,0 +1,125 @@
+/* ══════════════════════════════════════════════════════════════
+   PHOTO STREAM
+   ══════════════════════════════════════════════════════════════ */
+
+.photos-section {
+  padding: var(--section-padding) 0;
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(ellipse at 30% 50%, rgba(212,149,106,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 30%, rgba(142,175,196,0.04) 0%, transparent 50%);
+  position: relative;
+  overflow: hidden;
+}
+
+.photos-header {
+  text-align: center;
+  padding: 0 40px;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 5;
+}
+
+.photo-wall {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px;
+  height: 650px;
+  overflow: hidden;
+  position: relative;
+}
+
+.photo-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-column-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  will-change: transform;
+}
+
+.photo-item {
+  position: relative;
+  background: white;
+  padding: 8px;
+  box-shadow:
+    0 2px 8px var(--light-shadow),
+    0 6px 16px rgba(44, 44, 44, 0.08);
+  cursor: none;
+  flex-shrink: 0;
+  /* NO CSS transition — GSAP handles all transforms to prevent glitching */
+}
+
+.photo-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  pointer-events: none; /* Prevent img drag ghost */
+}
+
+.photo-item .photo-note {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  font-family: var(--font-handwritten);
+  font-size: 0.85rem;
+  color: var(--muted-orange);
+  background: #FFF9C4;
+  padding: 4px 10px;
+  transform: rotate(3deg);
+  box-shadow: 1px 2px 4px var(--light-shadow);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+/* NO :hover CSS — handled entirely by GSAP to avoid transform conflicts */
+
+/* Photo doodles between items */
+.photos-doodles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.photo-doodle {
+  position: absolute;
+}
+
+.pd-1 {
+  top: 30%;
+  left: 15%;
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+.pd-2 {
+  bottom: 20%;
+  right: 20%;
+  animation: floatSlow 8s ease-in-out infinite 1.5s;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .photo-wall {
+    height: 400px;
+    gap: 12px;
+    padding: 0 12px;
+  }
+  .photo-column:nth-child(4),
+  .photo-column:nth-child(5) {
+    display: none;
+  }
+  .photo-item img {
+    height: 150px;
+  }
+}
