@@ -474,6 +474,22 @@
   }
 }
 
+/* Laptop Optimization */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .playground-area {
+    min-height: 500px;
+  }
+
+  .playground-toolbar {
+    max-width: 500px;
+    padding: 10px 16px;
+  }
+
+  .pg-tool-btn {
+    padding: 8px 14px;
+  }
+}
+
 /* ── Deletion Button ── */
 .pg-item-delete {
   position: absolute;

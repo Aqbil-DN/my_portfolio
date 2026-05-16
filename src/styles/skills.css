@@ -318,6 +318,36 @@
   }
 }
 
+/* Laptop Optimization */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .chalkboard-container {
+    max-width: 960px;
+  }
+
+  .chalkboard {
+    min-height: 450px;
+    padding: 50px 30px;
+  }
+
+  .skills-grid {
+    gap: 24px 30px;
+  }
+
+  .skill-badge {
+    width: 130px;
+    height: 145px;
+  }
+
+  .skill-name {
+    font-size: 1.2rem;
+  }
+
+  .skill-icon {
+    width: 45px;
+    height: 45px;
+  }
+}
+
 /* ── CHALKBOARD PAGINATION & DUST ── */
 .chalk-pagination {
   display: flex;

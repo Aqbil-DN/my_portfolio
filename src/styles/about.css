@@ -233,3 +233,31 @@
     left: 30px;
   }
 }
+
+/* Laptop Optimization */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .about-paper {
+    padding: 50px 40px;
+    max-width: 850px;
+  }
+
+  .about-header .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+
+  .about-polaroid {
+    max-width: 190px;
+    margin: 0 0 15px 25px;
+  }
+
+  .about-polaroid img {
+    width: 170px;
+    height: 135px;
+  }
+
+  .about-sticky {
+    bottom: 25px;
+    right: 30px;
+    padding: 12px 10px;
+  }
+}

@@ -268,3 +268,35 @@
     transform: scale(0.7);
   }
 }
+
+/* Laptop Optimization (HP 14 etc) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .hero-section {
+    padding: 100px 40px 60px;
+  }
+
+  .hero-headline {
+    font-size: clamp(3rem, 6.5vw, 5.5rem);
+    margin-bottom: 20px;
+  }
+
+  .hero-photo-1 {
+    left: 4%;
+    top: 18%;
+  }
+
+  .hero-photo-2 {
+    right: 4%;
+    bottom: 20%;
+  }
+
+  .sticky-note {
+    left: 5%;
+    bottom: 18%;
+    width: 160px;
+  }
+
+  .hero-content {
+    max-width: 800px;
+  }
+}

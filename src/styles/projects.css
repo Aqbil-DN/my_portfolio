@@ -322,3 +322,37 @@
   }
 }
 
+/* Laptop Optimization */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .projects-container {
+    gap: 80px;
+    max-width: 1000px;
+  }
+
+  .project-card {
+    gap: 32px;
+  }
+
+  .project-title {
+    font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+    margin-bottom: 12px;
+  }
+
+  .project-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  .project-tags {
+    margin-bottom: 18px;
+  }
+
+  .project-sticker {
+    width: 60px;
+    height: 60px;
+    top: -24px;
+    right: -24px;
+  }
+}
+
