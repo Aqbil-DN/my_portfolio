@@ -150,5 +150,48 @@ export function initAbout() {
     }
     morphInk();
   }
+
+  // ── Chill Guy Animation ──
+  // ── Chill Guy Animation (Triggered on Hover) ──
+  const polaroid = document.querySelector('.about-polaroid');
+  if (polaroid) {
+    const chillPath = polaroid.querySelectorAll('.chill-path, .chill-arrow');
+    const chillText = polaroid.querySelector('.chill-guy-text');
+
+    polaroid.addEventListener('mouseenter', () => {
+      // Fast Entrance
+      gsap.killTweensOf([chillPath, chillText]);
+      gsap.fromTo(chillPath, 
+        { drawSVG: '0%', opacity: 1, scale: 1 },
+        { drawSVG: '100%', duration: 0.8, stagger: 0.05, ease: 'power2.inOut' }
+      );
+      gsap.fromTo(chillText,
+        { opacity: 0, scale: 0.5 },
+        { opacity: 1, scale: 1, duration: 0.4, delay: 0.5, ease: 'back.out(1.7)' }
+      );
+    });
+
+    polaroid.addEventListener('mouseleave', () => {
+      // Erase back to start
+      gsap.killTweensOf([chillPath, chillText]);
+      
+      gsap.to(chillText, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.3,
+        ease: 'power2.in'
+      });
+
+      gsap.to(chillPath, {
+        drawSVG: '0%',
+        duration: 0.6,
+        stagger: {
+          each: 0.05,
+          from: 'end'
+        },
+        ease: 'power2.inOut'
+      });
+    });
+  }
 }
 

@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Caveat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Homemade+Apple&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Caveat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Homemade+Apple&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Amatic+SC:wght@400;700&display=swap"
     rel="stylesheet" />
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📜</text></svg>" />
@@ -90,22 +90,19 @@
     </div>
 
     <div id="text-container">
-      <svg class="text-bg-stroke-svg" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid meet">
-        <path id="text-bg-stroke" class="draw-path" fill="none" stroke="var(--l-accent-orange)" stroke-width="2"
-          opacity="0.5" d="M 50 140 Q 300 40 550 160" />
-      </svg>
-
-      <h1 id="name-reveal">
-        Aqbil Dzaky Nauval
-      </h1>
+      <div class="name-wrapper">
+        <h1 id="name-reveal">
+          Aqbil Dzaky Nauval
+        </h1>
+        <div class="name-underline"></div>
+      </div>
 
       <div id="subtitle-wrapper">
         <svg viewBox="0 0 700 120" class="subtitle-svg">
           <path id="subtitle-path" class="draw-path" fill="none" stroke="var(--l-ink-light)" stroke-width="1.5"
             stroke-dasharray="4 4" opacity="0.3" stroke-linecap="round" stroke-linejoin="round"
             d="M 30 70 Q 175 40 350 70 T 670 70" />
-          <text class="handwriting-l" fill="var(--l-ink)" dominant-baseline="middle" text-anchor="middle"
-            font-size="28px">
+          <text class="handwriting-l" fill="var(--l-ink)" text-anchor="middle" font-size="28px" dy="-5">
             <textPath href="#subtitle-path" startOffset="50%">
               Crafting Digital Experiences From Paper Dreams
             </textPath>
@@ -302,6 +299,16 @@
             <img src="/src/assets/profile/profile.jpeg" alt="Aqbil working" />
             <span class="handwritten polaroid-caption">that's me! 👋</span>
             <div class="polaroid-tape"></div>
+
+            <!-- Flight path to 'Chill guy' with a loop -->
+            <svg class="chill-path-svg" viewBox="0 0 200 200">
+              <path class="chill-path"
+                d="M 180 180 C 100 180 100 100 140 100 C 180 100 180 180 100 180 C 40 180 20 100 20 20" fill="none"
+                stroke="var(--muted-orange)" stroke-width="2" stroke-dasharray="6 6" />
+              <path class="chill-arrow" d="M 12 30 L 20 20 L 28 25" fill="none" stroke="var(--muted-orange)"
+                stroke-width="2" />
+            </svg>
+            <div class="chill-guy-text handwritten">Chill guy</div>
           </div>
 
           <div class="about-text">

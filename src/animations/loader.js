@@ -145,11 +145,23 @@ export function initLoader(onComplete) {
     });
   }
 
+  // Build name underline dashes
+  function buildDashes() {
+    const underline = document.querySelector('.name-underline');
+    if (!underline) return;
+    for (let i = 0; i < 24; i++) {
+      const dash = document.createElement('div');
+      dash.className = 'dash';
+      underline.appendChild(dash);
+    }
+  }
+
   // ─── INTIALIZATION ───
   const chars = splitText('#name-reveal');
   initDrawPaths();
   createDust();
   buildCollage();
+  buildDashes();
 
   // ─── MOUSE PARALLAX BEHAVIOR ───
   const handleMouseMoveParallax = (e) => {
@@ -237,10 +249,14 @@ export function initLoader(onComplete) {
     stagger: 0.05,
     ease: 'back.out(1.7)'
   }, '-=1.5')
-  .to('#text-bg-stroke', {
-    strokeDashoffset: 0,
-    duration: 1.5,
-    ease: 'power2.inOut'
+  .to('.dash', {
+    scale: 1,
+    duration: 0.4,
+    stagger: {
+      each: 0.08,
+      from: 'start'
+    },
+    ease: 'power2.out'
   }, '-=1');
 
   // SCENE 6: Handwritten Message
@@ -259,7 +275,8 @@ export function initLoader(onComplete) {
     linePath.style.strokeDasharray = lineLength;
     linePath.style.strokeDashoffset = lineLength;
 
-    tl.to('#progress-text', { opacity: 1, duration: 0.5 })
+    tl.to('#progress-container', { opacity: 1, duration: 1 })
+      .to('#progress-text', { opacity: 1, duration: 0.5 }, '-=0.5')
       .to(progressState, {
         val: 100,
         duration: 4,
@@ -293,7 +310,19 @@ export function initLoader(onComplete) {
       ease: 'power2.inOut'
     }, 'exit')
     
-    // 2. Shrink and fade out collage images
+    // 2. Pop-out (scale down) dashes and other line elements
+    .to(['.dash', '.draw-path'], {
+      scale: 0,
+      opacity: 0,
+      duration: 0.5,
+      stagger: {
+        amount: 0.3,
+        from: 'end'
+      },
+      ease: 'back.in(1.2)'
+    }, 'exit')
+
+    // 3. Shrink and fade out collage images
     .to('.polaroid', {
       scale: 0,
       opacity: 0,

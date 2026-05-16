@@ -103,12 +103,43 @@
   transform: rotate(3deg);
   position: relative;
   max-width: 220px;
+  transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
+  cursor: pointer;
+}
+
+.about-polaroid:hover {
+  transform: rotate(0deg) translateY(-10px) scale(1.05);
+  box-shadow: 0 15px 30px var(--medium-shadow);
+  z-index: 10;
 }
 
 .about-polaroid img {
   width: 200px;
   height: 160px;
   object-fit: cover;
+}
+
+.chill-path-svg {
+  position: absolute;
+  top: -80px;
+  left: -120px;
+  width: 180px;
+  height: 180px;
+  pointer-events: none;
+  overflow: visible;
+  z-index: -1;
+}
+
+.chill-guy-text {
+  position: absolute;
+  top: -95px;
+  left: -140px;
+  font-size: 1.5rem;
+  color: var(--muted-orange);
+  white-space: nowrap;
+  transform: rotate(-10deg);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .polaroid-caption {
