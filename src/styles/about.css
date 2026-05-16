@@ -130,6 +130,10 @@
   z-index: -1;
 }
 
+.chill-path, .chill-arrow {
+  opacity: 0;
+}
+
 .chill-guy-text {
   position: absolute;
   top: -95px;

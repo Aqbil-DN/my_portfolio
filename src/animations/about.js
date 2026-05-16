@@ -158,6 +158,10 @@ export function initAbout() {
     const chillPath = polaroid.querySelectorAll('.chill-path, .chill-arrow');
     const chillText = polaroid.querySelector('.chill-guy-text');
 
+    // Initial state: Hidden
+    gsap.set(chillPath, { drawSVG: '0%' });
+    gsap.set(chillText, { opacity: 0, scale: 0.8 });
+
     polaroid.addEventListener('mouseenter', () => {
       // Fast Entrance
       gsap.killTweensOf([chillPath, chillText]);
