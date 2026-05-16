@@ -183,8 +183,8 @@ export function initLoader(onComplete) {
       // Clean up the mousemove parallax to improve runtime performance
       window.removeEventListener('mousemove', handleMouseMoveParallax);
       
-      // Clean up loader visibility
-      gsap.set(loader, { display: 'none' });
+      // Ensure no interaction interference
+      gsap.set(loader, { display: 'none', pointerEvents: 'none' });
       
       // Fire original callback to launch normal site lifecycle
       onComplete();
@@ -281,14 +281,34 @@ export function initLoader(onComplete) {
       });
   }
 
-  // SCENE 8: CUTE POP-UP TRANSITION (Modified from User logic to exit loader elegantly)
-  tl.add('cutePop')
-    .to(loader, {
-      scale: 0,
-      rotation: 15,
+  // SCENE 8: CINEMATIC EXIT SEQUENCE
+  tl.add('exit')
+    // 1. Fade out and scale down text elements
+    .to(['#name-reveal', '#subtitle-wrapper', '#progress-container'], {
+      y: -50,
       opacity: 0,
-      transformOrigin: 'center center',
+      scale: 0.8,
       duration: 0.8,
-      ease: 'back.in(1.2)'
-    }, 'cutePop');
+      stagger: 0.1,
+      ease: 'power2.inOut'
+    }, 'exit')
+    
+    // 2. Shrink and fade out collage images
+    .to('.polaroid', {
+      scale: 0,
+      opacity: 0,
+      duration: 0.6,
+      stagger: {
+        amount: 0.4,
+        from: 'random'
+      },
+      ease: 'back.in(1.4)'
+    }, 'exit+=0.2')
+    
+    // 3. Final slide up of the entire loading screen
+    .to(loader, {
+      yPercent: -100,
+      duration: 1,
+      ease: 'power4.inOut'
+    }, 'exit+=0.8');
 }

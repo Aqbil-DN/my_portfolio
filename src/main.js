@@ -36,6 +36,7 @@ import { initContact } from './animations/contact.js';
 import { initCursor } from './animations/cursor.js';
 import { initTransitions } from './animations/transitions.js';
 import { initFloatingBackground } from './animations/floatingBackground.js';
+import { initMusic } from './animations/music.js';
 
 // ─── LENIS SMOOTH SCROLL ───────────────────────────────
 const lenis = new Lenis({
@@ -65,6 +66,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Init cursor and build floating backgrounds immediately behind loader
   initCursor();
   initFloatingBackground();
+  initMusic();
 
   // Start the loading sequence, then init everything else
   initLoader(() => {
@@ -86,6 +88,9 @@ window.addEventListener('DOMContentLoaded', () => {
     initPlayground();
     initContact();
     initTransitions();
+
+    // Reveal music player
+    if (window.revealMusicPlayer) window.revealMusicPlayer();
 
     // ─── CUSTOM SMOOTH SCROLL NAVIGATION ───
     const navLinks = document.querySelectorAll('.nav-link');
