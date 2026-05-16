@@ -267,32 +267,16 @@ export function initSkills() {
       return;
     }
 
-    // Prepare the wrappers for physical clipPath erasing by enforcing the initial state
+    // Prepare the wrappers for transition
     gsap.set(oldWrappers, { clipPath: 'inset(0% 0% 0% 0%)' });
 
-    // Group items into Row 1 and Row 2
-    const row1 = [];
-    const row2 = [];
-    oldWrappers.forEach((w, idx) => {
-      if (idx < 4) row1.push(w);
-      else row2.push(w);
-    });
-
-    const eraserRect = eraser.getBoundingClientRect();
     const gridRect = grid.getBoundingClientRect();
+    const eraserRect = eraser.getBoundingClientRect();
 
-    // Accurate measurements of rows
-    const r1Rect = row1[0].getBoundingClientRect();
-    const r2Rect = row2.length > 0 ? row2[0].getBoundingClientRect() : null;
-
-    // Precise delta translations relative to the eraser resting point
     const startX = gridRect.left - eraserRect.left;
     const endX = gridRect.right - eraserRect.left;
-
-    const r1Y = r1Rect.top - eraserRect.top + r1Rect.height / 2 - eraserRect.height / 2;
-    const r2Y = r2Rect
-      ? (r2Rect.top - eraserRect.top + r2Rect.height / 2 - eraserRect.height / 2)
-      : (r1Y + 180); // fallback displacement
+    const topY = gridRect.top - eraserRect.top - 20;
+    const bottomY = gridRect.bottom - eraserRect.top + 20;
 
     const eraseTL = gsap.timeline({
       onComplete: () => {
@@ -300,74 +284,71 @@ export function initSkills() {
       }
     });
 
-    // 1. Lift physical eraser and position on top-left of the grid to start sweeping
+    // 1. Position eraser at TOP-LEFT
     eraseTL.to(eraser, {
       x: startX - 40,
-      y: r1Y,
-      scale: 1.3,
-      rotation: 0,
+      y: topY,
+      scale: 1.4,
+      rotation: -10,
       duration: 0.5,
       ease: 'power2.out'
     });
 
-    // 2. Sweep ROW 1 (LEFT TO RIGHT)
-    eraseTL.to(eraser, {
-      x: endX + 40,
-      duration: 0.8,
-      ease: 'sine.inOut',
-      onUpdate: () => spawnDust(eraser)
-    });
+    // 2. Dense Zigzag Sweeping Path (Diagonal Atas-Bawah)
+    const zigzagSteps = 14; // More steps = more "friction"
+    for (let i = 0; i <= zigzagSteps; i++) {
+      const progress = i / zigzagSteps;
+      const x = startX + (endX - startX) * progress;
+      const y = (i % 2 === 0) ? topY : bottomY;
 
-    // 3. SYNCED ROW 1 PHYSICAL CLIP-PATH ERASE
-    eraseTL.to(row1, {
-      clipPath: 'inset(0% 0% 0% 100%)', // Wipe from left to right
-      duration: 0.3,
-      stagger: 0.13,
-      ease: 'none'
-    }, '-=0.85'); // perfectly synced to the sweep progress
-
-    // 4. Move Down to right side of ROW 2 to setup back-sweep
-    eraseTL.to(eraser, {
-      x: endX + 40,
-      y: r2Y,
-      rotation: -15, // Tilt eraser naturally
-      duration: 0.4,
-      ease: 'power2.inOut'
-    });
-
-    // 5. Sweep ROW 2 (RIGHT TO LEFT)
-    eraseTL.to(eraser, {
-      x: startX - 40,
-      duration: 0.8,
-      ease: 'sine.inOut',
-      onUpdate: () => spawnDust(eraser)
-    });
-
-    // 6. SYNCED ROW 2 PHYSICAL CLIP-PATH ERASE (RIGHT TO LEFT)
-    if (row2.length > 0) {
-      const reversedRow2 = [...row2].reverse(); // Eraser is moving from right, so reverse sequence
-      eraseTL.to(reversedRow2, {
-        clipPath: 'inset(0% 100% 0% 0%)', // Wipe from right to left
-        duration: 0.3,
-        stagger: 0.13,
-        ease: 'none'
-      }, '-=0.85');
+      eraseTL.to(eraser, {
+        x: x,
+        y: y,
+        rotation: (i % 2 === 0) ? 15 : -15,
+        duration: 0.12, // Fast, aggressive rubbing
+        ease: 'sine.inOut',
+        onUpdate: () => {
+          if (Math.random() > 0.3) spawnDust(eraser);
+        }
+      });
     }
 
-    // 7. CALLBACK: Swap data halfway through the swipe return
+    // 3. Sync badge disappearance (Synchronized with zigzag path: Top-Bottom, Left-Right)
+    const zigzagSequence = [];
+    const numCols = 4;
+    for (let col = 0; col < numCols; col++) {
+      if (oldWrappers[col]) zigzagSequence.push(oldWrappers[col]); // Top row
+      if (oldWrappers[col + numCols]) zigzagSequence.push(oldWrappers[col + numCols]); // Bottom row
+    }
+
+    eraseTL.to(zigzagSequence, {
+      opacity: 0,
+      scale: 0.5,
+      y: 40,
+      filter: 'blur(12px)',
+      rotation: 'random(-25, 25)',
+      duration: 0.4,
+      stagger: {
+        amount: 1.5, // Sync with zigzag total time
+        from: 'start'
+      },
+      ease: 'power1.in'
+    }, '-=1.65'); // Start shortly after eraser starts its first move
+
+    // 4. Halfway point: Swap the data and prepare for new page
     eraseTL.add(() => {
       currentPage = nextIdx;
       renderPage(currentPage, true);
-    });
+    }, '-=0.2');
 
-    // 8. Neatly put eraser back on wooden shelf
+    // 5. Neatly put eraser back on shelf
     eraseTL.to(eraser, {
       x: 0,
       y: 0,
       scale: 1,
       rotation: -2,
-      duration: 0.6,
-      ease: 'power2.inOut'
+      duration: 0.7,
+      ease: 'back.inOut(1.2)'
     });
   }
 
